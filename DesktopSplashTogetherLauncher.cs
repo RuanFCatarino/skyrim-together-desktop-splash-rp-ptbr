@@ -9,10 +9,11 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
 
-[assembly: AssemblyTitle("Desktop Splash Screen - Skyrim Together Launcher")]
-[assembly: AssemblyDescription("Compatibility launcher for Desktop Splash Screen and Skyrim Together Reborn")]
-[assembly: AssemblyCompany("Community compatibility build")]
+[assembly: AssemblyTitle("Desktop Splash Screen Together - Add-on Launcher")]
+[assembly: AssemblyDescription("Add-on for the original Desktop Splash Screen with Skyrim Together Reborn compatibility")]
+[assembly: AssemblyCompany("RuanFCatarino")]
 [assembly: AssemblyProduct("Desktop Splash Screen - Together Compatible")]
+[assembly: AssemblyCopyright("Copyright (c) 2026 RuanFCatarino")]
 [assembly: AssemblyVersion("1.2.0.0")]
 [assembly: AssemblyFileVersion("1.2.0.0")]
 
@@ -41,9 +42,26 @@ internal static class Program
         string togetherExe = Path.Combine(launcherDir, "SkyrimTogether.exe");
         string dataDir = Directory.GetParent(launcherDir.TrimEnd(Path.DirectorySeparatorChar)).FullName;
         string gameRoot = Directory.GetParent(dataDir).FullName;
-        string gifPath = Path.Combine(dataDir, "Interface", "splash.gif");
-        string pngPath = Path.Combine(dataDir, "Interface", "splash.png");
-        string splashPath = File.Exists(gifPath) ? gifPath : pngPath;
+        string originalDll = Path.Combine(dataDir, "SKSE", "Plugins", "_SplashScreen.dll");
+        string originalPreload = Path.Combine(dataDir, "SKSE", "Plugins", "_SplashScreen_preload.txt");
+        string addOnDir = Path.Combine(dataDir, "Interface", "DesktopSplashTogether");
+        string addOnGif = Path.Combine(addOnDir, "splash.gif");
+        string addOnPng = Path.Combine(addOnDir, "splash.png");
+        string originalPng = Path.Combine(dataDir, "Interface", "splash.png");
+        string splashPath = new[] { addOnGif, addOnPng, originalPng }.FirstOrDefault(File.Exists);
+
+        if (!File.Exists(originalDll) || !File.Exists(originalPreload))
+        {
+            MessageBox.Show(
+                "O Desktop Splash Screen original não foi encontrado.\n\n" +
+                "Instale e ative primeiro o mod original Nexus 83470:\n" +
+                "https://www.nexusmods.com/skyrimspecialedition/mods/83470\n\n" +
+                "Depois, inicie este complemento pelo Vortex ou MO2.",
+                "Dependência obrigatória ausente",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            return;
+        }
 
         if (!File.Exists(togetherExe))
         {
@@ -60,7 +78,7 @@ internal static class Program
         {
             MessageBox.Show(
                 "Nenhuma imagem da splash foi encontrada. Use um destes arquivos:\n" +
-                gifPath + "\n" + pngPath,
+                addOnGif + "\n" + addOnPng + "\n" + originalPng,
                 "Desktop Splash Screen - Together",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
@@ -427,3 +445,4 @@ internal static class NativeMethods
     [DllImport("gdi32.dll")]
     internal static extern bool DeleteObject(IntPtr obj);
 }
+
