@@ -1,18 +1,14 @@
-# Desktop Splash Screen Together
+# Desktop Splash Screen Together — dependency add-on
 
-Source code for the Skyrim Together Reborn RP PT-BR desktop splash launcher.
+This is an unofficial compatibility add-on for the original Desktop Splash
+Screen by Parapets / Exit-9B:
+https://www.nexusmods.com/skyrimspecialedition/mods/83470
 
-The launcher:
+The add-on requires the original `_SplashScreen.dll` and preload marker. It does
+not include, replace or modify them. Add-on artwork is loaded from the isolated
+`Data/Interface/DesktopSplashTogether/` directory, with the original
+`Data/Interface/splash.png` used only as a fallback.
 
-- displays `Data/Interface/splash.gif` or `splash.png`;
-- draws the animated loading label and progress bar itself;
-- starts the existing `SkyrimTogether.exe` without modifying it;
-- closes when the visible game window is detected.
+See `BUILDING.md` for reproducible build instructions and
+`THIRD-PARTY-NOTICES.md` for attribution.
 
-The compiled mod and this repository contain no copy of `SkyrimTogether.exe`.
-
-Nexus Mods page: https://www.nexusmods.com/skyrimspecialedition/mods/190395
-
-Original MIT-licensed Desktop Splash Screen project: https://github.com/Exit-9B/SplashScreen
-
-See `BUILDING.md` for reproducible build instructions.
