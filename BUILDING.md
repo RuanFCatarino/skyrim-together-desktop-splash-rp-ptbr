@@ -1,17 +1,11 @@
-# Building
+# Building the dependency add-on
 
-Requirements:
-
-- Windows 10 or 11
-- .NET Framework 4.x SDK/compiler
-
-From a Developer Command Prompt, run:
+Requirements: Windows 10/11 and the .NET Framework 4.x SDK compiler.
 
 ```bat
-C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /target:winexe /platform:anycpu /optimize+ /win32icon:SkyrimTogether-user-icon.ico /reference:System.dll /reference:System.Core.dll /reference:System.Drawing.dll /reference:System.Windows.Forms.dll /out:DesktopSplashTogetherLauncher.exe DesktopSplashTogetherLauncher.cs
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /target:winexe /platform:anycpu /optimize+ /reference:System.dll /reference:System.Core.dll /reference:System.Drawing.dll /reference:System.Windows.Forms.dll /out:DesktopSplashTogetherLauncher.exe DesktopSplashTogetherLauncher.cs
 ```
 
-The executable has no third-party managed dependencies and performs no network
-access, injection, registry modification, elevation or modification of
-`SkyrimTogether.exe`.
+The compiled launcher keeps assembly version `1.2.0.0`. It requires the original
+Desktop Splash Screen files at runtime and does not contain or modify them.
 
